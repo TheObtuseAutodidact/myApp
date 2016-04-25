@@ -18,7 +18,7 @@
  */
 var app = {
     // Application Constructor
-    // here things were working
+    // here things
     initialize: function() {
         this.bindEvents();
     },
@@ -49,8 +49,8 @@ var app = {
               $.ajax({
                 type: 'POST',
                 // async: false,
-                url: 'https://rocky-peak-36243.herokuapp.com/api/v1/locations/',
-                data: JSON.stringify({"long": contact}), // or JSON.stringify ({name: 'jonas'}),
+                url: 'https://011d4666.ngrok.io/api/v1/locations',  //'https://rocky-peak-36243.herokuapp.com/api/v1/locations/',
+                data: JSON.stringify({ location: {long: 12} }), // or JSON.stringify ({name: 'jonas'}), var contact availible here
                 success: function(data) { alert('data: ' + JSON.stringify(contact) ); },
                 contentType: "application/json",
                 dataType: 'json'

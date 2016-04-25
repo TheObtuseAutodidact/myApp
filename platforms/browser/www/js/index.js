@@ -18,7 +18,7 @@
  */
 var app = {
     // Application Constructor
-    // here things were working
+    // here things
     initialize: function() {
         this.bindEvents();
     },
@@ -37,10 +37,8 @@ var app = {
         app.receivedEvent('deviceready');
         $("#select-contact").on('click', function(){
           navigator.contacts.pickContact(function(contact){
-            var myLocation = navigator.geolocation.getCurrentPosition(onSuccess);
-            alert(myLocation);
                 doThing(contact);
-                alert(JSON.stringify(contact)); // alert driven development
+                alert(JSON.stringify(contact));
 
                 // console.log('The following contact has been selected:' + JSON.stringify(contact));
             },function(err){
@@ -50,18 +48,15 @@ var app = {
             function doThing(contact){
               $.ajax({
                 type: 'POST',
-                url: 'https://rocky-peak-36243.herokuapp.com/api/v1/locations/',
-                data: JSON.stringify( {"location": {"long": contact} } ), // or JSON.stringify ({name: 'jonas'}),
+                // async: false,
+                url: 'https://011d4666.ngrok.io/api/v1/locations',  //'https://rocky-peak-36243.herokuapp.com/api/v1/locations/',
+                data: JSON.stringify({ location: {long: 12} }), // or JSON.stringify ({name: 'jonas'}), var contact availible here
                 success: function(data) { alert('data: ' + JSON.stringify(contact) ); },
                 contentType: "application/json",
                 dataType: 'json'
               });
             }
-
-            var onSuccess = function(position) {
-              alert('Latitude: '          + position.coords.latitude          + '\n' +
-              'Longitude: '         + position.coords.longitude         + '\n');
-            };
+            // var myLocation = navigator.geolocation.getCurrentPosition(onSuccess);
 
           });
     },
@@ -78,6 +73,10 @@ var app = {
     }
 };
 
+// var onSuccess = function(position) {
+//     alert('Latitude: '          + position.coords.latitude          + '\n' +
+//           'Longitude: '         + position.coords.longitude         + '\n');
+//         };
 
 // var contact = navigator.contacts.pickContact(function(contact){
 //         console.log('The following contact has been selected:' + JSON.stringify(contact));
