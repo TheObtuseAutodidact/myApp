@@ -36,30 +36,47 @@ var app = {
     onDeviceReady: function() {
         app.receivedEvent('deviceready');
         $("#select-contact").on('click', function(){
-          var thing = navigator.geolocation.getCurrentPosition(onSuccess,
-	           function(error){
-               alert(error.message);
-             }, {
-               enableHighAccuracy: true
-              ,timeout : 5000
-    });
+          // var thing = navigator.geolocation.getCurrentPosition(onSuccess,
+	        //    function(error){
+          //      alert(error.message);
+          //    }, {
+          //      enableHighAccuracy: true
+          //     ,timeout : 5000
+          //       });
+
+
           navigator.contacts.pickContact(function(contact){
-                // doThing(contact);
                 alert(JSON.stringify(contact));
+                navigator.geolocation.getCurrentPosition(function(position){
+                    doThing(contact, position);
+                },
+      	           function(error){
+                     alert(error.message);
+                   }, {
+                     enableHighAccuracy: true
+                    ,timeout : 5000
+                  })
+
+
+
                 // alert(JSON.stringify(myLoc));
                 // doOtherThing(postion);
                 // console.log('The following contact has been selected:' + JSON.stringify(contact));
             },function(err){
                 alert('Something went awry or amiss or askew or afoul: ' + err);
-            });
+            }, {maximumAge:600000, timeout:15000, enableHighAccuracy: true});
 
-            function doThing(contact){
+            function doThing(contact, position){
+              alert(JSON.stringify(position));
               $.ajax({
                 type: 'POST',
                 // async: false,
-                url: 'https://011d4666.ngrok.io/api/v1/locations',  //'https://rocky-peak-36243.herokuapp.com/api/v1/locations/',
-                data: JSON.stringify({ location: {long: thing} }), // or JSON.stringify ({name: 'jonas'}), var contact availible here
-                // success: function(data) { alert('data: ' + JSON.stringify(data) ); },
+                url: 'http://b674088f.ngrok.io/api/v1/locations',  //'https://rocky-peak-36243.herokuapp.com/api/v1/locations/',
+                data: JSON.stringify({ location: {lat: position.coords.latitude, long: position.coords.longitude}}), // or JSON.stringify ({name: 'jonas'}), var contact availible here
+                success: function(data) { alert('data: ' + JSON.stringify(data) ); },
+                error: function(xhr) {
+                  alert('Something went wrong! ' + xhr.responseText)
+                },
                 contentType: "application/json",
                 dataType: 'json'
               }).done(function(resp) {
@@ -87,10 +104,11 @@ var app = {
     }
 };
 
-var onSuccess = function(position) {
-    alert('Latitude: '          + position.coords.latitude          + '\n' +
-          'Longitude: '         + position.coords.longitude         + '\n');
-        };
+// function onSuccess(position) {
+//     alert('Latitude: '          + position.coords.latitude          + '\n' +
+//           'Longitude: '         + position.coords.longitude         + '\n');
+//           // 'stringify: ' + JSON.stringify(position));
+//         };
 
 // var contact = navigator.contacts.pickContact(function(contact){
 //         console.log('The following contact has been selected:' + JSON.stringify(contact));
