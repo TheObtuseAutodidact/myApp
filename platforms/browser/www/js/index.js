@@ -36,10 +36,18 @@ var app = {
     onDeviceReady: function() {
         app.receivedEvent('deviceready');
         $("#select-contact").on('click', function(){
+          var thing = navigator.geolocation.getCurrentPosition(onSuccess,
+	           function(error){
+               alert(error.message);
+             }, {
+               enableHighAccuracy: true
+              ,timeout : 5000
+    });
           navigator.contacts.pickContact(function(contact){
-                doThing(contact);
+                // doThing(contact);
                 alert(JSON.stringify(contact));
-
+                // alert(JSON.stringify(myLoc));
+                // doOtherThing(postion);
                 // console.log('The following contact has been selected:' + JSON.stringify(contact));
             },function(err){
                 alert('Something went awry or amiss or askew or afoul: ' + err);
@@ -50,12 +58,18 @@ var app = {
                 type: 'POST',
                 // async: false,
                 url: 'https://011d4666.ngrok.io/api/v1/locations',  //'https://rocky-peak-36243.herokuapp.com/api/v1/locations/',
-                data: JSON.stringify({ location: {long: 12} }), // or JSON.stringify ({name: 'jonas'}), var contact availible here
-                success: function(data) { alert('data: ' + JSON.stringify(contact) ); },
+                data: JSON.stringify({ location: {long: thing} }), // or JSON.stringify ({name: 'jonas'}), var contact availible here
+                // success: function(data) { alert('data: ' + JSON.stringify(data) ); },
                 contentType: "application/json",
                 dataType: 'json'
+              }).done(function(resp) {
+                alert(JSON.stringify(resp))
               });
             }
+
+            // function doOtherThing(position){
+            //   navigator.geolocation.getCurrentPosition(onSuccess);
+            // }
             // var myLocation = navigator.geolocation.getCurrentPosition(onSuccess);
 
           });
@@ -73,10 +87,10 @@ var app = {
     }
 };
 
-// var onSuccess = function(position) {
-//     alert('Latitude: '          + position.coords.latitude          + '\n' +
-//           'Longitude: '         + position.coords.longitude         + '\n');
-//         };
+var onSuccess = function(position) {
+    alert('Latitude: '          + position.coords.latitude          + '\n' +
+          'Longitude: '         + position.coords.longitude         + '\n');
+        };
 
 // var contact = navigator.contacts.pickContact(function(contact){
 //         console.log('The following contact has been selected:' + JSON.stringify(contact));
@@ -108,89 +122,3 @@ var app = {
 //         }
 //     }
 // }
-
-// var contact = "bullshit";
-//  var dansShit = function(callback) {
-//    contact = navigator.contacts.pickContact();
-//    alert(contact);
-//
-//    if (typeof callback === 'function') {
-//      callback()
-//    }
-//  }
-// var app = {
-//     // Application Constructor
-//     initialize: function() {
-//         this.bindEvents();
-//     },
-//     // Bind Event Listeners
-//     //
-//     // Bind any events that are required on startup. Common events are:
-//     // 'load', 'deviceready', 'offline', and 'online'.
-//     bindEvents: function() {
-//         document.addEventListener('deviceready', this.onDeviceReady, false);  // 'deviceready' is an id tag in index.html
-//     },
-//     // deviceready Event Handler
-//     //
-//     // The scope of 'this' is the event. In order to call the 'receivedEvent'
-//     // function, we must explicitly call 'app.receivedEvent(...);'
-//     onDeviceReady: function() {
-//         app.receivedEvent('deviceready');
-//         $("#select-contact").on('click', function(){
-          // dansShit(function() {
-          //   $.ajax({
-          //     // async: false,
-          //     type: 'POST',
-          //     url: 'https://rocky-peak-36243.herokuapp.com/api/v1/locations/',
-          //     data: contact, // or JSON.stringify ({name: 'jonas'}),
-          //     success: function(data) { alert('data: ' + contact ); },
-          //     contentType: "application/json",
-          //     dataType: 'json'
-          //   });
-          //   alert("Hooray!")
-          // })
-          // var lennysPromise = new Promise(function(resolve, reject) {
-          //   var contact = navigator.contacts.pickContact();
-          //   resolve(contact)
-          // })
-
-
-          // var contact = "IT DIDN'T GET IT"
-
-        //
-
-//         navigator.contacts.pickContact(function(chosenContact){
-//                 // alert(JSON.stringify(contact));
-//                 contact = chosenContact
-//                 // console.log('The following contact has been selected:' + JSON.stringify(contact));
-//             },function(err){
-//                 console.log('Error: ' + err);
-//             });
-//             while(contact === "bullshit") {
-//
-//             };
-//             $.ajax({
-//               // async: false,
-//               type: 'POST',
-//               url: 'https://rocky-peak-36243.herokuapp.com/api/v1/locations/',
-//               data: contact, // or JSON.stringify ({name: 'jonas'}),
-//               success: function(data) { alert('data: ' + contact ); },
-//               contentType: "application/json",
-//               dataType: 'json'
-//             });
-//             // var myLocation = navigator.geolocation.getCurrentPosition(onSuccess);
-//
-//           });
-//     },
-//     // Update DOM on a Received Event
-//     receivedEvent: function(id) {
-//         var parentElement = document.getElementById(id);
-//         var listeningElement = parentElement.querySelector('.listening');
-//         var receivedElement = parentElement.querySelector('.received');
-//
-//         listeningElement.setAttribute('style', 'display:none;');
-//         receivedElement.setAttribute('style', 'display:block;');
-//
-//         console.log('Received Event: ' + id);
-//     }
-// };
