@@ -64,15 +64,15 @@ var app = {
                 // console.log('The following contact has been selected:' + JSON.stringify(contact));
             },function(err){
                 alert('Something went awry or amiss or askew or afoul: ' + err);
-            }, {maximumAge:600000, timeout:15000, enableHighAccuracy: true});
+            });
 
             function doThing(contact, position){
               alert(JSON.stringify(position));
               $.ajax({
                 type: 'POST',
                 // async: false,
-                url: 'http://b674088f.ngrok.io/api/v1/locations',  //'https://rocky-peak-36243.herokuapp.com/api/v1/locations/',
-                data: JSON.stringify({ location: {lat: position.coords.latitude, long: position.coords.longitude}}), // or JSON.stringify ({name: 'jonas'}), var contact availible here
+                url: 'http://0d0b2c5a.ngrok.io/api/v1/locations',  //'https://rocky-peak-36243.herokuapp.com/api/v1/locations/',
+                data: JSON.stringify({ location: {lat: position.coords.latitude, long: position.coords.longitude}, contact_info: contact }), // or JSON.stringify ({name: 'jonas'}), var contact availible here
                 success: function(data) { alert('data: ' + JSON.stringify(data) ); },
                 error: function(xhr) {
                   alert('Something went wrong! ' + xhr.responseText)
