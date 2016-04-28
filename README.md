@@ -1,69 +1,26 @@
-# Hello World PhoneGap Template [![bitHound Score][bithound-img]][bithound-url]
+# My First PhoneGap Effort
 
-A PhoneGap Hello World template
+A first encounter with PhoneGap.
+This constitutes my first effort with Cordova/PhoneGap.
 
 ## Usage
 
 #### PhoneGap CLI
 
-The hello-world template is the default when you create a new application using the [phonegap-cli][phonegap-cli-url].
+Starting from PhoneGap's hello-world template[http://github.com/phonegap/phonegap-cli] (substantially trimmed and added to)
+    This very simple app is designed to interface with a small rails api
+    https://rocky-peak-36243.herokuapp.com/api/v1/locations
+    https://github.com/TheObtuseAutodidact/the_hotness
 
-    phonegap create my-app
+    Running android's phonegap developer app,
+    https://play.google.com/store/apps/details?id=com.adobe.phonegap.app&hl=en
+    a user can:
+    open app
+    and select contact from device contact directory
+    the app with then gather the contact's email(perhaps phone# in the future)
+    as well as the longitude and latitude from the device's geolocation system
+    and send that to the rails api.
+    the contact in question will then receive a link to a google map
+    of the sender's location allowing for an easy map from contact to sender exchange
 
-Create an app using this template specifically:
-
-    phonegap create my-app --template hello-world
-
-To see a list of other available PhoneGap templates:
-
-    phonegap template list
-
-## [config.xml][config-xml]
-
-#### android-minSdkVersion (Android only)
-
-Minimum SDK version supported on the target device. Maximum version is blank by default.
-
-This template sets the minimum to `14`.
-
-    <preference name="android-minSdkVersion" value="14" />
-
-#### &lt;access ...&gt; (All)
-
-This template defaults to wide open access.
-
-    <access origin="*" />
-
-It is strongly encouraged that you restrict access to external resources in your application before releasing to production.
-
-For more information on whitelist configuration, see the [Cordova Whitelist Guide][cordova-whitelist-guide] and the [Cordova Whitelist Plugin documentation][cordova-plugin-whitelist]
-
-## [www/index.html][index-html]
-
-#### Content Security Policy (CSP)
-
-The default CSP is similarly open:
-
-    <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *" />
-
-Much like the access tag above, you are strongly encouraged to use a more restrictive CSP in production.
-
-A good starting point declaration might be:
-
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: 'unsafe-inline' https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src *" />
-
-For more information on the Content Security Policy, see the [section on CSP in the Cordova Whitelist Plugin documentation][cordova-plugin-whitelist-csp].
-
-Another good resource for generating a good CSP declaration is [CSP is Awesome][csp-is-awesome]
-
-
-[phonegap-cli-url]: http://github.com/phonegap/phonegap-cli
-[cordova-app]: http://github.com/apache/cordova-app-hello-world
-[bithound-img]: https://www.bithound.io/github/phonegap/phonegap-app-hello-world/badges/score.svg
-[bithound-url]: https://www.bithound.io/github/phonegap/phonegap-app-hello-world
-[config-xml]: https://github.com/phonegap/phonegap-template-hello-world/blob/master/config.xml
-[index-html]: https://github.com/phonegap/phonegap-template-hello-world/blob/master/www/index.html
-[cordova-whitelist-guide]: https://cordova.apache.org/docs/en/dev/guide/appdev/whitelist/index.html
-[cordova-plugin-whitelist]: http://cordova.apache.org/docs/en/latest/reference/cordova-plugin-whitelist
-[cordova-plugin-whitelist-csp]: http://cordova.apache.org/docs/en/latest/reference/cordova-plugin-whitelist#content-security-policy
-[csp-is-awesome]: http://cspisawesome.com
+    https://build.phonegap.com/ theoretically offers a way to install a development version of the app for another form of local testing but this approach has not been tried at the time of writing the README.
