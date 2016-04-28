@@ -46,7 +46,7 @@ var app = {
 
 
           navigator.contacts.pickContact(function(contact){
-                alert(JSON.stringify(contact));
+                // alert(JSON.stringify(contact, ['displayName']));   // ################ I would like to add a check on contact if correct continue else break
                 navigator.geolocation.getCurrentPosition(function(position){
                     doThing(contact, position);
                 },
@@ -67,20 +67,18 @@ var app = {
             });
 
             function doThing(contact, position){
-              alert(JSON.stringify(position));
+              // alert(JSON.stringify(position));
               $.ajax({
                 type: 'POST',
                 // async: false,
-                url: 'http://0d0b2c5a.ngrok.io/api/v1/locations',  //'https://rocky-peak-36243.herokuapp.com/api/v1/locations/',
+                url: 'https://rocky-peak-36243.herokuapp.com/api/v1/locations/', // 'http://0d0b2c5a.ngrok.io/api/v1/locations', 
                 data: JSON.stringify({ location: {lat: position.coords.latitude, long: position.coords.longitude}, contact_info: contact }), // or JSON.stringify ({name: 'jonas'}), var contact availible here
-                success: function(data) { alert('data: ' + JSON.stringify(data) ); },
+                success: function(data) { console.log('data: ' + JSON.stringify(data) ); },
                 error: function(xhr) {
                   alert('Something went wrong! ' + xhr.responseText)
                 },
                 contentType: "application/json",
                 dataType: 'json'
-              }).done(function(resp) {
-                alert(JSON.stringify(resp))
               });
             }
 
